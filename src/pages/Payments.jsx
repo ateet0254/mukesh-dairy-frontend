@@ -354,7 +354,7 @@ export default function Payments() {
                       <div className="text-sm font-medium text-gray-950">
                         [{formatSL(p.customer?.slNo)}] {p.customer?.name || 'Unknown'}
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="flex flex-col sm:flex-row sm:grid sm:grid-cols-2 gap-3">
                         <input type="date" className="rounded-lg border px-2 py-1" value={editForm.date} onChange={e => setEditForm({...editForm, date: e.target.value})} />
                         <input type="number" step="0.01" placeholder="Amount" className="rounded-lg border px-2 py-1" value={editForm.amount} onChange={e => setEditForm({...editForm, amount: e.target.value})} />
                         <select className="rounded-lg border px-2 py-1" value={editForm.mode} onChange={e => setEditForm({...editForm, mode: e.target.value})}>
