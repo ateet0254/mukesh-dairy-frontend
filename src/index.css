@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pdf-hidden {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  visibility: hidden !important;
+  width: 794px !important;
+  background: white !important;
+}
+
+/* PDF Visible - Element is positioned off-screen but visible for rendering */
+.pdf-visible {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  visibility: visible !important;
+  width: 794px !important;
+  background: white !important;
+}
+.animate-fade-in-out {
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+/* In your global CSS file */
+.has-payment {
+  background-color: #f7f3e8; /* A light yellow color */
+  border-radius: 6px;
+  color: #3b82f6; /* Example text color */
+  font-weight: bold;
+}
+
+/* Mobile-friendly defaults */
+html, body, #root { height: 100%; }
+body { background: #f9fafb; color: #111827; }
+    
