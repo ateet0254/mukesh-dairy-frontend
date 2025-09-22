@@ -33,6 +33,8 @@ export default function Customers() {
   const [search, setSearch] = useState("");
   const [showInfoPopup, setShowInfoPopup] = useState(false);
   const [infoCustomer, setInfoCustomer] = useState(null);
+  const [adding, setAdding] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   // animation variants
   const leftIn = {
@@ -81,6 +83,7 @@ export default function Customers() {
 
   async function onAdd(e) {
     e.preventDefault();
+    setAdding(true); 
     try {
       await api.createCustomer({
         slNo: form.slNo,
@@ -95,11 +98,14 @@ export default function Customers() {
     } catch (e) {
       setPopup({ type: "error", text: e.message || "Failed to add customer" });
       setTimeout(() => setPopup(null), 4000);
-    }
+    } finally {
+    setAdding(false); // Set adding state back to false
+  }
   }
 
   async function onUpdate(e) {
     e.preventDefault();
+    setSaving(true);
     try {
       await api.updateCustomer(editingId, {
         slNo: editForm.slNo,
@@ -115,6 +121,8 @@ export default function Customers() {
     } catch (e) {
       setPopup({ type: "error", text: e.message || "Failed to update customer" });
       setTimeout(() => setPopup(null), 4000);
+    } finally {
+      setSaving(false); // Set saving state back to false
     }
   }
 
@@ -147,7 +155,7 @@ export default function Customers() {
       )}
 
       <form onSubmit={onAdd} className="bg-gradient-to-r from-sky-50 to-sky-200 shadow rounded-xl p-4 space-y-3">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-col sm:flex-row sm:grid sm:grid-cols-2 gap-3">
           <input
             className="rounded-lg border p-2"
             placeholder="Serial No."
@@ -176,9 +184,13 @@ export default function Customers() {
             value={form.village}
             onChange={(e) => setForm({ ...form, village: e.target.value })}
           />
-        </div>
-        <button className="w-full h-11 rounded-xl bg-blue-600 text-white">
-          Add Customer
+        </div>  
+        <button
+          className="w-full h-11 rounded-xl bg-blue-600 text-white disabled:bg-blue-400 disabled:cursor-not-allowed transition"
+          type="submit"
+          disabled={adding}
+        >
+          {adding ? "Adding..." : "Add Customer"}
         </button>
       </form>
       
@@ -248,8 +260,12 @@ export default function Customers() {
                         />
                       </div>
                       <div className="flex gap-3">
-                        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-                          Save
+                        <button
+                          type="submit"
+                          className="bg-blue-600 text-white px-4 py-2 rounded-lg disabled:bg-blue-400 disabled:cursor-not-allowed transition"
+                          disabled={saving}
+                        >
+                          {saving ? "Saving..." : "Save"}
                         </button>
                         <button
                           type="button"
@@ -261,7 +277,7 @@ export default function Customers() {
                       </div>
                     </form>
                   ) : (
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-2">
                       <div>
                         <div className="font-bold text-bg">
                           [{String(c.slNo).padStart(3, "0")}] {c.name}
@@ -276,7 +292,7 @@ export default function Customers() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-start gap-3 flex-wrap">
                         <a
                           href={waNumber ? `https://wa.me/${waNumber}` : "#"}
                           target="_blank"

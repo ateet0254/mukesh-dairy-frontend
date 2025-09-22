@@ -243,7 +243,7 @@ export default function Payments() {
           className="w-full"
         />
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-col sm:flex-row sm:grid sm:grid-cols-2 gap-3">
           <input
             type="date"
             className="rounded-lg border px-3 py-2"
@@ -296,14 +296,16 @@ export default function Payments() {
 
       <div className="md:col-span-2 bg-white p-4 rounded-xl shadow space-y-3">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <label className="text-lg font-semibold text-gray-950">Pick date</label>
+          <div>
+            <label className="text-lg font-semibold text-gray-950 mr-3">Pick date</label>
             <input
               type="date"
               className="rounded-lg border px-3 py-2"
               value={isoOf(selectedDate)}
               onChange={(e) => setSelectedDate(new Date(e.target.value))}
             />
+          </div>
+          <div className="flex items-center gap-3">
             <button onClick={() => setSelectedDate(new Date())} className="text-lg font-semibold text-blue-600 ">Today</button>
             <button onClick={goToPreviousRecord} className="text-lg font-semibold text-blue-600">Previous Record</button>
           </div>

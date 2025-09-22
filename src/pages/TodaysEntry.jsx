@@ -485,7 +485,7 @@ export default function TodaysEntry() {
             <div>
               <button
                 onClick={() => setShowMorningList((prev) => !prev)}
-                className="bg-yellow-100 text-gray-950 font-bold px-4 py-2 rounded-lg shadow hover:scale-105 transition"
+                className="bg-blue-100 text-gray-950 font-bold px-4 py-2 rounded-lg shadow hover:scale-105 transition"
               >
                 🌅 Morning Customers
               </button>
@@ -519,7 +519,7 @@ export default function TodaysEntry() {
             <div>
               <button
                 onClick={() => setShowEveningList((prev) => !prev)}
-                className="bg-blue-100 text-gray-950 font-bold px-4 py-2 rounded-lg shadow hover:scale-105 transition"
+                className="bg-yellow-100 text-gray-950 font-bold px-4 py-2 rounded-lg shadow hover:scale-105 transition"
               >
                 🌙 Evening Customers
               </button>

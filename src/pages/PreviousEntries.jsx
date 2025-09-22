@@ -375,7 +375,7 @@ export default function PreviousEntries() {
           {/* Shift lists (collapsed by default) */}
           <div className="space-y-4">
             <div className="bg-white shadow rounded-xl">
-              <button onClick={() => setShowMorningList((p) => !p)} className="bg-yellow-100 text-gray-950 font-bold px-4 py-2 w-full rounded-lg shadow">
+              <button onClick={() => setShowMorningList((p) => !p)} className="bg-blue-100 text-gray-950 font-bold px-4 py-2 w-full rounded-lg shadow">
                 🌅 Morning Customers {showMorningList ? "▲" : "▼"}
               </button>
               {showMorningList && (
@@ -396,7 +396,7 @@ export default function PreviousEntries() {
             </div>
 
             <div className="bg-white shadow rounded-xl">
-              <button onClick={() => setShowEveningList((p) => !p)} className="w-full bg-blue-100 text-gray-950 font-bold px-4 py-2 rounded-lg shadow">
+              <button onClick={() => setShowEveningList((p) => !p)} className="w-full bg-yellow-100 text-gray-950 font-bold px-4 py-2 rounded-lg shadow">
                 🌙 Evening Customers {showEveningList ? "▲" : "▼"}
               </button>
               {showEveningList && (

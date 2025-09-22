@@ -6,9 +6,10 @@ import logo from "../assets/logo.png";
 import mission from "../assets/mission.jpg";
 import { motion } from "framer-motion";
 
+
 export default function WeeklyData() {
   const [customers, setCustomers] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(""); 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
@@ -16,6 +17,7 @@ export default function WeeklyData() {
   const [popup, setPopup] = useState(null);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false); // ✅ Add this
+  const [isLoading, setIsLoading] = useState(true);
   const pdfRef = useRef(null);
 
   const leftIn = {
@@ -31,8 +33,20 @@ export default function WeeklyData() {
     visible: { transition: { staggerChildren: 0.08, when: "beforeChildren" } }
   };
 
+   const loadCustomers = async () => {
+    setIsLoading(true); // Start loading
+    try {
+      const data = await api.listCustomers();
+      setCustomers(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false); // End loading
+    }
+  };
+
   useEffect(() => {
-    api.listCustomers().then(setCustomers).catch(console.error);
+    loadCustomers();
   }, []);
 
   const filteredCustomers = customers.filter((c) => {
@@ -276,19 +290,36 @@ export default function WeeklyData() {
       <h1 className="text-xl font-bold text-gray-800">📊 Weekly Data</h1>
 
       <div className="flex gap-4 bg-gradient-to-r from-pink-50 to-pink-200 p-4 rounded-lg shadow">
+      <div className="flex flex-col">
+        <label htmlFor="startDate" className="text-sm font-medium text-gray-700 mb-1">Start Date</label>
         <input
+          id="startDate"
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           className="border rounded-lg p-2"
         />
+      </div>
+      <div className="flex flex-col">
+        <label htmlFor="endDate" className="text-sm font-medium text-gray-700 mb-1">End Date</label>
         <input
+          id="endDate"
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
           className="border rounded-lg p-2"
         />
       </div>
+    </div>
+    {isLoading ? (
+      <div className="flex justify-center items-center min-h-[200px]">
+          <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+              className="h-16 w-16 border-4 border-blue-500 border-t-transparent rounded-full"
+          />
+      </div>
+  ) : (
 
       <motion.div
         variants={listContainer}
@@ -329,6 +360,7 @@ export default function WeeklyData() {
           ))}
         </div>
       </motion.div>
+  )}
 
       {isFetchingData && (
         <div className="flex justify-center items-center py-6">
