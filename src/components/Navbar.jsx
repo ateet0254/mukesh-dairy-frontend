@@ -172,6 +172,14 @@ export default function Navbar() {
                         Weekly Data
                       </NavLink>
                       <NavLink
+                        to="/weekly-list"
+                        className={navLinkClasses}
+                        onClick={() => setOpen(false)}
+                        role="menuitem"
+                      >
+                        Weekly List
+                      </NavLink>
+                      <NavLink
                         to="/payments"
                         className={navLinkClasses}
                         onClick={() => setOpen(false)}

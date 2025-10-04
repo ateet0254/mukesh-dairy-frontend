@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import TodaysEntry from "./pages/TodaysEntry";
 import PreviousEntries from "./pages/PreviousEntries";
 import WeeklyData from "./pages/WeeklyData";
+import WeeklyList from "./pages/WeeklyList"; 
 
 
 // Protect private routes
@@ -87,6 +88,14 @@ function AppContent() {
                   <WeeklyData />
                 </PrivateRoute>
             } 
+          />
+          <Route 
+            path="/weekly-list" 
+              element={
+                <PrivateRoute>
+                  <WeeklyList />
+                </PrivateRoute>
+              } 
           />
         </Routes>
       </main>
